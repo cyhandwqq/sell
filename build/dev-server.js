@@ -21,6 +21,34 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
+
+/*****路由规则*****/
+var appData = require("../data.json");
+var seller = appData.seller;
+var goods = appData.goods;
+var ratings = appData.ratings;
+
+app.get('/api/seller', function(req,res){
+  res.json({
+    errno : 0,
+    data : seller
+  });
+});
+app.get('/api/goods', function(req,res){
+  res.json({
+    errno : 0,
+    data : goods
+  });
+});
+app.get('/api/ratings', function(req,res){
+  res.json({
+    errno : 0,
+    data : ratings
+  });
+});
+/*****路由规则 end*****/
+
+
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
@@ -76,6 +104,6 @@ module.exports = app.listen(port, function (err) {
 
   // when env is testing, don't need open it
   if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
-    opn(uri)
+    // opn(uri)
   }
 })
